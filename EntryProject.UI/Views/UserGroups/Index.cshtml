@@ -1,0 +1,97 @@
+﻿@using EntryProject.UI.Controllers
+@using EntryProject.UI.ViewModels
+@model CreateGroupViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div id="display-blocker" hidden="hidden"></div>
+    <div class="container-fluid">
+        <h2>Загрузка номеров телефонов</h2>
+        <br />
+        <form id="upload-form" name="upload-form" class="uploadForm" asp-controller="UserGroups" asp-action="Index" method="post" enctype="multipart/form-data" role="form">
+            
+            <div class="alert alert-danger alert-dismissible hidden" role="alert">
+                <button type="button" class="close" data-role="dismiss-alert" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                </button>
+                <ul id="error-list"></ul>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="label-required"></label>
+                <input asp-for="Name" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description" class="label-required"></label>
+                <input asp-for="Description" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                @{
+                    var groupTypes = Model.GroupTypes.Select(gt => new SelectListItem
+                    {
+                        Value = gt.Id.HasValue ? gt.Id.ToString() : "",
+                        Text = gt.Name
+                    });
+                }
+
+                <label asp-for="SelectedGroupTypeId" class="label-required"></label>
+                <select asp-for="SelectedGroupTypeId" asp-items="groupTypes" class="form-control" required></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UserPhones" class="label-required"></label>
+
+                <div class="alert alert-info" role="alert">
+                    <ul>
+                        @{ var maxFileSize = UserGroupsController.MaxFileSize / 1048576;}
+                        <li>Файл не должен быть более @maxFileSize Мб</li>
+                        <li>Допустимые расширения файла: @string.Join(", ", UserGroupsController.AllowedFileExtensions)</li>
+                    </ul>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-group-addon" id="file-addon" asp-for="UserPhones">Выбрать</label>
+                    
+                    @* Hidden file-input must be before text input to display the last one properly (bootstrap) *@
+                    <input asp-for="UserPhones" type="file" accept=".csv,.txt" class="form-control hidden" required />
+
+                    <input id="selected-file-name" type="text" class="form-control fileUpload error-after-parent" readonly aria-describedby="file-addon">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary pull-left">Отправить</button>
+            <span id="spinner" class="pull-left"></span>
+        </form>
+    </div>
+    
+    <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="~/lib/spinner/spin.min.js"></script>
+
+    <script type="text/javascript" src="~/js/site.js"></script>
+    <script type="text/javascript">
+        Index.setConfig({
+            uploadFileUrl: '@Url.Action("Index", "UserGroups")',
+            maxFileSize: @UserGroupsController.MaxFileSize,
+            allowedFileExensions: @Json.Serialize(UserGroupsController.AllowedFileExtensions),
+            defaultErrorMessage: 'Что-то пошло не так...',
+            fileUploaderId: '@Html.IdFor(model => model.UserPhones)'
+        });
+    </script>
+</body>
+</html>

@@ -1,6 +1,20 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿@font-face {
+    font-family: "NeoSansCyr-Medium";
+    src: url("/fonts/NeoSansCyr-Italic.woff") format('woff');
+}
+
+@font-face {
+    font-family: "NeoSansCyr-Regular";
+    src: url("/fonts/NeoSansCyr-Regular.woff") format('woff');
+}
+
+@font-face {
+    font-family: "NeoSansCyr-Italic";
+    src: url("/fonts/NeoSansCyr-Italic.woff") format('woff');
+}
+
+body {
+    font-family: 'NeoSansCyr-Regular', sans-serif;
 }
 
 /* Wrapping element */
@@ -34,4 +48,50 @@ textarea {
     .carousel-caption {
         display: none;
     }
+}
+
+label {
+    cursor: pointer;
+}
+
+label,
+input,
+button {
+    font-family: 'NeoSansCyr-Regular', sans-serif;
+}
+
+select{
+    font-family: 'NeoSansCyr-Medium', sans-serif;
+}
+
+#display-blocker {
+    background-color: black;
+    opacity: 0.4;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 50;
+}
+
+#upload-form {
+    max-width: 767px;
+}
+
+#upload-form .alert {
+    max-width: 400px;
+}
+
+.error,
+.asterisk-required {
+    font-size: 13px;
+    color: #a94442;
+}
+
+.label-required:after {
+    content: '*';
+}
+
+/* Bootstrap overrides */
+.input-group {
+    max-width: 280px;
 }

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
@@ -7,13 +7,29 @@
   <PropertyGroup>
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\fonts\NeoSansCyr-Italic.woff" />
+    <Content Include="wwwroot\fonts\NeoSansCyr-Medium.woff" />
+    <Content Include="wwwroot\fonts\NeoSansCyr-Regular.woff" />
+    <Content Include="wwwroot\lib\spinner\spin.min.js" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.1.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.0" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
