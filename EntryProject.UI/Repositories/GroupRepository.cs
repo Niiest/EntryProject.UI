@@ -11,7 +11,7 @@ namespace EntryProject.UI.Repositories
 {
     public class GroupRepository : IGroupRepository
     {
-        private const int InsertAsOneRowLimit = 1000;
+        private const int InsertInOneCallLimit = 1000;
         private const string TempFolderName = "Temp";
         private const string BulkInsertFileExtension = "csv";
         private const string BulkInsertStatementFormat = @"
@@ -62,7 +62,7 @@ namespace EntryProject.UI.Repositories
                         GroupTypeId = groupTypeId
                     });
 
-                    if (userPhoneNumbers.Length <= InsertAsOneRowLimit)
+                    if (userPhoneNumbers.Length <= InsertInOneCallLimit)
                     {
                         var groupUsers = userPhoneNumbers.Select(number => new DataModels.GroupUser
                         {
@@ -75,7 +75,7 @@ namespace EntryProject.UI.Repositories
 
                     await _context.SaveChangesAsync();
 
-                    if (userPhoneNumbers.Length > InsertAsOneRowLimit)
+                    if (userPhoneNumbers.Length > InsertInOneCallLimit)
                     {
                         // Good enough (may be?) for this case, without a knowledge of the whole product
                         filepath = GetTempFilePath();
